@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,8 +26,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased p-4`}
       >
+        <div className="flex gap-4">
+          <Link href="/">Home</Link>
+          <Link href="/page1">Page1</Link>
+          <Link href="/page2">Page2</Link>
+          <Link href="/page3">Page3</Link>
+        </div>
+        <div>
+          <div>Page1 uses setTimeout and behaves like I would expect</div>
+          <div>
+            Page2 uses RSC and is somewhat slow but behaves like I would expect
+          </div>
+          <div>
+            Page3 is like Page1 without setTimeout and becomes unresponsive
+            during page load. Also the Suspense fallback is not shown.
+          </div>
+        </div>
         {children}
       </body>
     </html>
